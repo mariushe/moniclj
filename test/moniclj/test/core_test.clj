@@ -21,3 +21,10 @@
 
 (fact "1 when init-or-inc"
       (core/init-or-inc 1) => 2)
+
+(fact "failed? when not failed"
+      (core/failed? {:last-update {:state 0}}) => false)
+
+(fact "failed? when failed"
+      (core/failed? {:last-update {:state 2}}) => true)
+
