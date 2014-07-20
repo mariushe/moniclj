@@ -2,13 +2,13 @@
   (:require [monger.core :as core]
             [monger.collection :as collection]))
 
+(def conne (atom (core/connect)))
+
 (defn get-checks []
-  (let [conn (core/connect)
-        db (core/get-db conn "moniclj")]
+  (let [db (core/get-db @conne "moniclj")]
     (collection/find-maps db "check")))
 
 (defn save-check [check]
-  (let [conn (core/connect)
-        db (core/get-db conn "moniclj")]
+  (let [db (core/get-db @conne "moniclj")]
     (collection/save-and-return db "check" check)))
  
