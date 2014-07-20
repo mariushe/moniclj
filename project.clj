@@ -13,4 +13,5 @@
                         [org.clojure/data.json "0.2.5"]
                         [org.clojars.runa/conjure "2.1.3"]
                         [ring/ring-json "0.3.1"]
-                        [midje "1.6.3"]]}})
+                        [midje "1.6.3"]
+                        [com.novemberain/monger "2.0.0"]]}})

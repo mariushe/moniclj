@@ -1,6 +1,7 @@
 (ns moniclj.core
   (use [clojure.java.shell :only [sh]]
-       [clojure.string :only [split]]))
+       [clojure.string :only [split]])
+  (:require [moniclj.check-dao :as dao]))
 
 (def execute-check (fn [cmd] (sh "sh" "-c" cmd)))
 
@@ -21,10 +22,14 @@
 
 (def handle-check (fn [check] (-> check 
                                   (run-check)
-                                  (inc-if-fail))))
+                                  (inc-if-fail)
+                                  (dao/save-check))))
 
-(def executor-loop (fn [] (while true (let []
-                                        (prn "hello world")
-                                        (Thread/sleep 1000)))))
+(def something (fn [value] (inc value)))
+
+(def executor-loop (fn [] (while true 
+                            (let []
+                              (prn (map handle-check (dao/get-checks)))
+                              (Thread/sleep 2000)))))
 
 (def startup (fn [] (executor-loop)))

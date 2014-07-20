@@ -1,6 +1,7 @@
 (ns moniclj.test.core-test
   (:use clojure.test)
   (:require [moniclj.core :as core]
+            [moniclj.check-dao :as dao]
             [midje.sweet :refer :all]
             [conjure.core :refer :all]))
 
