@@ -22,14 +22,15 @@
 
 (def handle-check (fn [check] (-> check 
                                   (run-check)
-                                  (inc-if-fail)
-                                  (dao/save-check))))
+                                  (inc-if-fail))))
 
-(def something (fn [value] (inc value)))
+(def start-check-process (fn [check] (-> check
+                                         (handle-check)
+                                         (dao/save-check))))
 
 (def executor-loop (fn [] (while true 
                             (let []
-                              (prn (map handle-check (dao/get-checks)))
+                              (prn (map start-check-process (dao/get-checks)))
                               (Thread/sleep 2000)))))
 
 (def startup (fn [] (executor-loop)))
