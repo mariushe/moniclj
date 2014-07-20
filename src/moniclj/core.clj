@@ -22,3 +22,9 @@
 (def handle-check (fn [check] (-> check 
                                   (run-check)
                                   (inc-if-fail))))
+
+(def executor-loop (fn [] (while true (let []
+                                        (prn "hello world")
+                                        (Thread/sleep 1000)))))
+
+(def startup (fn [] (executor-loop)))
