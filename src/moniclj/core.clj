@@ -33,4 +33,6 @@
                               (prn (map start-check-process (dao/get-checks)))
                               (Thread/sleep 2000)))))
 
-(def startup (fn [] (executor-loop)))
+(def loop-agent (agent 0))
+
+(def startup (fn [] (.start (Thread. executor-loop))))
