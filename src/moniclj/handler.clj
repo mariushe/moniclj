@@ -17,7 +17,7 @@
            (GET "/" [] (resource :available-media-types ["application/json"]
                                  :handle-ok (map fix-object (dao/get-checks)))))
   
-  (route/resources "/")
+  (route/resources "/app" {:root "app"})
   (route/not-found "Not Found"))
 
 (def app

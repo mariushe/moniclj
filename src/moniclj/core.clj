@@ -31,7 +31,7 @@
 (def executor-loop (fn [] (while true 
                             (let []
                               (prn (map start-check-process (dao/get-checks)))
-                              (Thread/sleep 2000)))))
+                              (Thread/sleep 30000)))))
 
 (def loop-agent (agent 0))
 
