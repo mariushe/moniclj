@@ -11,7 +11,7 @@
 (fact "handle check"
       (core/handle-check {:cmd "echo hello world" :last-update {}}) => {:cmd "echo hello world"
                                                                         :fail-count 0
-                                                                        :last-update {:state 0
+                                                                        :last-update {:state "OK"
                                                                                       :msg "hello world\n"}})
 
 (fact "nil when init-or-inc"
@@ -24,8 +24,12 @@
       (core/init-or-inc 1) => 2)
 
 (fact "failed? when not failed"
-      (core/failed? {:last-update {:state 0}}) => false)
+      (core/failed? {:last-update {:state "OK"}}) => false)
 
 (fact "failed? when failed"
-      (core/failed? {:last-update {:state 2}}) => true)
+      (core/failed? {:last-update {:state "CRITICAL"}}) => true)
+
+
+(fact "give status real name OK"
+      (core/give-state-real-name 0) => "OK")
 

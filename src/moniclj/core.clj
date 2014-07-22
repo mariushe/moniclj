@@ -5,12 +5,17 @@
 
 (def execute-check (fn [cmd] (sh "sh" "-c" cmd)))
 
+(def give-state-real-name (fn [code]  (let [code-key (keyword (str code))]
+                                         (-> {:0 "OK" 
+                                              :1 "WARNING"
+                                              :2 "CRITICAL"} code-key))))
+
 
 (def run-check (fn [check] (let [result (execute-check (-> check :cmd))]
-                             (assoc check :last-update {:state (-> result :exit)
+                             (assoc check :last-update {:state (give-state-real-name (-> result :exit))
                                                         :msg (-> result :out)}))))
 
-(def failed? (fn [check] (= (-> check :last-update :state) 2)))
+(def failed? (fn [check] (= (-> check :last-update :state) "CRITICAL")))
 
 (def init-or-inc (fn [value] (if-not (nil? value)
                                (inc value)
