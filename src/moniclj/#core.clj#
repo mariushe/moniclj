@@ -5,17 +5,11 @@
 
 (def execute-check (fn [cmd] (sh "sh" "-c" cmd)))
 
-(def give-state-real-name (fn [code]  (let [code-key (keyword (str code))]
-                                         (-> {:0 "OK" 
-                                              :1 "WARNING"
-                                              :2 "CRITICAL"} code-key))))
-
-
 (def run-check (fn [check] (let [result (execute-check (-> check :cmd))]
-                             (assoc check :current {:state (give-state-real-name (-> result :exit))
+                             (assoc check :last-update {:state (-> result :exit)
                                                         :msg (-> result :out)}))))
 
-(def failed? (fn [check] (= (-> check :last-update :state) "CRITICAL")))
+(def failed? (fn [check] (= (-> check :last-update :state) 2)))
 
 (def init-or-inc (fn [value] (if-not (nil? value)
                                (inc value)
@@ -36,8 +30,6 @@
 (def executor-loop (fn [] (while true 
                             (let []
                               (prn (map start-check-process (dao/get-checks)))
-                              (Thread/sleep 30000)))))
+                              (Thread/sleep 2000)))))
 
-(def loop-agent (agent 0))
-
-(def startup (fn [] (.start (Thread. executor-loop))))
+(def startup (fn [] (executor-loop)))

@@ -1,1 +1,10 @@
-<h1>Hei dette er en test</h1>
+<table class="table table-striped table-hover">
+  <tr ng-repeat="current in checks">
+    <td class="col-md-2 success">
+      {{ current.current.state }}
+    </td>
+    <td class="col-md-10">
+      {{ current.current.msg }}
+    </td>
+  </tr>
+</table>
