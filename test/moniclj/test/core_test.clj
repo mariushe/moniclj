@@ -14,7 +14,6 @@
                                                                         :current {:state "OK"
                                                                                       :msg "hello world\n"}})
 
-
 (fact "nil when init-or-inc"
       (core/init-or-inc nil) => 1)
 
