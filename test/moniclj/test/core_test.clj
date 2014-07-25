@@ -24,10 +24,10 @@
       (core/init-or-inc 1) => 2)
 
 (fact "failed? when not failed"
-      (core/failed? {:last-update {:state "OK"}}) => false)
+      (core/failed? {:current {:state "OK"}}) => false)
 
 (fact "failed? when failed"
-      (core/failed? {:last-update {:state "CRITICAL"}}) => true)
+      (core/failed? {:current {:state "CRITICAL"}}) => true)
 
 
 (fact "give status real name OK"

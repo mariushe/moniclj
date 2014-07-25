@@ -14,7 +14,7 @@
                              (assoc check :current {:state (give-state-real-name (-> result :exit))
                                                         :msg (-> result :out)}))))
 
-(def failed? (fn [check] (= (-> check :last-update :state) "CRITICAL")))
+(def failed? (fn [check] (= (-> check :current :state) "CRITICAL")))
 
 (def init-or-inc (fn [value] (if-not (nil? value)
                                (inc value)
