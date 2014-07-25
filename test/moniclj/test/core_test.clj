@@ -9,10 +9,11 @@
       (core/execute-check "echo hello world") => {:exit 0 :out "hello world\n" :err ""})
 
 (fact "handle check"
-      (core/handle-check {:cmd "echo hello world" :last-update {}}) => {:cmd "echo hello world"
+      (core/handle-check {:cmd "echo hello world" :current {}}) => {:cmd "echo hello world"
                                                                         :fail-count 0
-                                                                        :last-update {:state "OK"
+                                                                        :current {:state "OK"
                                                                                       :msg "hello world\n"}})
+
 
 (fact "nil when init-or-inc"
       (core/init-or-inc nil) => 1)
