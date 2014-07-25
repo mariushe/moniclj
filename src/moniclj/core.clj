@@ -10,8 +10,6 @@
                                               :1 "WARNING"
                                               :2 "CRITICAL"} code-key))))
 
-
-
 (def run-check (fn [check] (let [result (execute-check (-> check :cmd))]
                              (assoc check :current {:state (give-state-real-name (-> result :exit))
                                                         :msg (-> result :out)}))))
