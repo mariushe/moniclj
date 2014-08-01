@@ -16,9 +16,7 @@
 
 (def failed? (fn [check] (= (-> check :current :state) "CRITICAL")))
 
-(def init-or-inc (fn [value] (if-not (nil? value)
-                               (inc value)
-                               1)))
+(def init-or-inc (fnil (fn [value] (inc value)) 0))
 
 (def inc-if-fail (fn [check]  (if (failed? check) 
                                 (update-in check [:fail-count] init-or-inc)
